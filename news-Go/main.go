@@ -99,11 +99,6 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	search.NextPage = next
 	pageSize := 20
 
-	search.TotalPages = int(math.Ceil(float64(search.Results.TotalResults / pageSize)))
-	if ok := !search.IsLastPage(); ok {
-		search.NextPage++
-	}
-
 	endpoint := fmt.Sprintf("https://newsapi.org/v2/everything?q=%s&pageSize=%d&page=%d&apiKey=%s&sortBy=publishedAt&language=en", url.QueryEscape(search.SearchKey), pageSize, search.NextPage, *apiKey)
 	resp, err := http.Get(endpoint)
 
@@ -120,15 +115,25 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	err = json.NewDecoder(resp.Body).Decode(&search.Results)
-
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
+	//fmt.Println("Total is :", search.Results.TotalResults)
+	//fmt.Println("Search Key is :", search.SearchKey)
+
+	search.TotalPages = int(math.Ceil(float64(search.Results.TotalResults) / float64(pageSize)))
+
+	if ok := !search.IsLastPage(); ok {
+		search.NextPage++
+	}
+
 	err = tpl.Execute(w, search)
 	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
+		//w.WriteHeader(http.StatusInternalServerError)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 }
 

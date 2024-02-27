@@ -13,6 +13,10 @@ html {
   --dark-green: #003b00;
   --dark-grey: #777;
   --light-grey: #dadce0;
+  --dark-blue: #00008B;
+  --dark-yellow: #9b870c;
+  --dark-magenta: #8B008B;
+  --light-yellow: #FFFF00;
 }
 
 body {
@@ -30,7 +34,8 @@ a:hover {
 
 a.button {
   border: 2px solid #004400;
-  color: var(--dark-green);
+  background-color: var(--light-yellow);
+  color: var(--dark-blue);
   border-radius: 4px;
   padding: 6px 24px;
   font-size: 14px;
@@ -39,8 +44,8 @@ a.button {
 
 a.button:hover {
   text-decoration: none;
-  background-color: var(--dark-green);
-  color: var(--light-green);
+  background-color: var(--dark-magenta);
+  color: var(--light-yellow);
 }
 
 header {
@@ -52,13 +57,14 @@ header {
   right: 0;
   display: flex;
   justify-content: space-between;
-  background-color: var(--light-green);
+  background-color: var(--dark-blue);
+  color: var(--light-yellow);
   padding: 5px 10px;
   align-items: center;
 }
 
 .logo {
-  color: #002200;
+  color: #df7ed7;
 }
 
 form {
@@ -71,7 +77,7 @@ form {
   border-radius: 4px;
   border-color: transparent;
   background-color: var(--dark-green);
-  color: var(--light-green);
+  color: var(--light-yellow);
   font-size: 16px;
   line-height: 1.4;
   padding-left: 5px;
@@ -86,7 +92,7 @@ form {
 
 .result-count {
   color: var(--dark-grey);
-  text-align: center;
+  text-align: right;
   margin-bottom: 15px;
 }
 
